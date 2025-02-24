@@ -15,6 +15,8 @@ Getting started with Astrovim on Windows with Windows Terminal and (PowerShell)
    ctrl + shift + w ... close tab ... if this is the last tab, it will close the terminal window
 
    alt + shift + + ... split terminal window horizontally
+   alt + shift + <
+   alt + shift + > .........resize the split
    alt + < go to the right tab
    alt + < go to the left tab
 
@@ -93,3 +95,14 @@ Similarly, we have
     in explorer, "s" will open tht file in a split
     then ctrl-w and sub command to manage splits
     ctrl-w h switch to left window
+
+15. Installing copilot
+    edit plugins/lua/user.lua and add the following line
+
+```
+{ import = "copilot" },
+```
+
+..then do :Copilot setup
+
+16.

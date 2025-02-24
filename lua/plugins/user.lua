@@ -95,5 +95,42 @@ return {
   },
   {
     "github/copilot.vim",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false }, -- Disable standalone Copilot UI
+        panel = { enabled = false }, -- Disable Copilot floating panel
+      }
+      require("copilot_cmp").setup() -- Use Copilot as a cmp source
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "github/copilot.vim", -- Copilot
+      "zbirenbaum/copilot.lua", -- Alternative Copilot integration
+      "zbirenbaum/copilot-cmp", -- Copilot as a cmp source
+      "hrsh7th/cmp-nvim-lsp", -- LSP completions
+      "hrsh7th/cmp-buffer", -- Buffer completions
+      "hrsh7th/cmp-path", -- Path completions
+      "L3MON4D3/LuaSnip", -- Snippet engine
+      "saadparwaiz1/cmp_luasnip", -- Snippet completions
+    },
+    config = function()
+      local cmp = require "cmp"
+      cmp.setup {
+        mapping = {
+          ["<C-n>"] = cmp.mapping.select_next_item(), -- Next suggestion
+          ["<C-p>"] = cmp.mapping.select_prev_item(),
+          ["<CR>"] = cmp.mapping.confirm { select = true },
+        },
+        sources = {
+          { name = "copilot", group_index = 2 }, -- Copilot suggestions
+          { name = "nvim_lsp", group_index = 2 }, -- LSP completions
+          { name = "buffer", group_index = 3 }, -- Buffer words
+          { name = "path", group_index = 3 }, -- File paths
+          { name = "luasnip", group_index = 3 }, -- Snippet completions
+        },
+      }
+    end,
   },
 }
