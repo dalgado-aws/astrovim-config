@@ -182,5 +182,18 @@
 
 ..then do :Copilot setup
 
+Once Copilot Setup is done, then use following techniquies
+... Copilot will automatically make suggestions when cursor is resting
+
 17. Installing ChatGPT
     Get a ChatGPT API key from OpenAI by visiting https://beta.openai.com/signup/
+    Set the environment variable in PowerShell
+    $env:OPENAI_API_KEY="sk-proj-P2lnbwyGhZ4YHw9Vh6jsjsaxE5St5VV2KbEGSM4c79G..........."
+
+    :ChatGPT
+    Various options are avialble
+
+18. Getting started with simple java program
+    Exebutin the program
+
+19. Getting Started with Springboot
