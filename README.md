@@ -1,24 +1,21 @@
-### Getting started with Astrovim on Windows with Windows Terminal and PowerShell
+### Getting started with AstroNvim on Windows with Windows Terminal and PowerShell
 
 1. Open Windows Terminal
 
    ctrl + shift + p ... open command palette ...show all commands
 
-   ctrl + shift + t ... new terminal
-
+   ctrl + shift + t ... new terminal window
    ctrl + tab ... switch to next terminal window
-   ctrl + shift +tab ... switch to previous terminal window
-
-   ctrl + shift + w ... close tab. if this is the last tab, it will close the terminal window
+   ctrl + shift + tab ... switch to previous terminal window
+   ctrl + shift + w ... close terminal window. if this is the last terminal window, it will close the terminal window
 
    alt + shift + + ... split terminal window horizontally
-   alt + shift + <
-   alt + shift + > ... resize the split
-   ctrl + shift + w... will close the split
+   alt + shift + < ... resize the split
+   alt + shift + >
+   ctrl + shift + w ... will close the split
    alt + < go to the right tab
    alt + < go to the left tab
-
-   ctrl - NUM PAD - ... decrease font size
+   ctrl + NUM PAD -(Minus) ... decrease font size
 
 2. Install nvim for windows
 
@@ -26,69 +23,85 @@
 
 3. When nvim starts up , it will look for init.lua in C:\Users\<userid>\AppData\Local\nvim\init.lua
 
-   To use AstoNvim, the init.lua has to be customized.
+   To use AstoNvim, the init.lua has to be customized to load AstroNvim specific config and plugins.
    Fetch the customized init.lua to your AppData\Local\nvim\init.lua by cloning the following repo from github:
 
    `git clone --depth 1 https://github.com/AstroNvim/template $env:LOCALAPPDATA\nvim`
 
    This will create C:\Users\<userid>\AppData\Local\nvim
 
-4. If possible, make the nvim directory a git repo
-   This way you can revert any changes you make to the init.lua of other config files.
+4. Optional Step: Convert the nvim config directory(C:\Users\<userid>\AppData\Local\nvim\init.lua) to a git repo
+   This way you can revert any changes you make to the init.lua or other config files.
+   For this, create a new repository on git hub and push the nvim directory to the repository.
 
-5. cd C:\Users\<userid>\AppData\Local\nvim
+5. Change to the nvim config directory and start nvim
+   `cd C:\Users\<userid>\AppData\Local\nvim`
+   `nvim`
+   This will start nvim with the customized `init.lua` in `C:\Users\<userid>\AppData\Local\nvim`.
+   The customized init.lua will first install the `lazy` package manager.
+   It will then load `lua/lazy_setup.lua`
+   `lua/lazy_setup.lua` will do the following:
 
-6. `nvim`
-   This will start nvim with the customized init.lua.
-   The customized init.lua will install the `lazy` package manager.
-   It will then load lua/lazy_setup.lua
-   lua/lazy_setup.lua will load the AstroNvim plugin and the plugins from lua/plugins and commnunity.lua
+   1. `lua/lazy_setup.lua` load and configure the AstroNvim plugin.
+   2. `lua/lazy_setup.lua` load and configure the plugins from folder `lua/plugins`
+      Note that most of the files under `lua/plugins` are `disabled` by defaut.
+      To enable the file, comment out the below line that appears the the top of each file:
+      `if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE`
+   3. `lua/lazy_setup.lua` load and confiure the plugins from `commnunity.lua`
 
-7. Edit the community.lua and add the following lines to enable the language packs for angular and java(or other languages)
+6. Install the "language packs" for the languages you are interested in.
+
+   To install the "language packs" for `angular` and `java` , do the following:
+
+   1. Edit the `community.lua` and add the following lines:
+
+   ```
+   { import = "astrocommunity.pack.angular" },
+   { import = "astrocommunity.pack.java" },
+   ```
+
+   2. If the file has a line `if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE`, then comment out this line.
 
    All available community "language packs" are listed [here](https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/pack)
 
-```
-{ import = "astrocommunity.pack.angular" },
-{ import = "astrocommunity.pack.java" },
-```
+7. Save the file. Exit nvim with <space> Q and restart nvim. This will cause all "language pack" plugins to be installed.
 
-7. Save the file. Exit nvim with <space> Q and restart nvim. This will cause all plungins to be installed.
-   The AstroNVim config will install some important plugins:
-   TressSitter: for syntax highlighting
-   DAP: for debugging
-   LSPInstaller: for language server
+8. Understanding Language Support in Nvim
+   Modern Editors(like Nvim and VSCode ) do not have inbuilt support for syntax highlighting, parsing, debugging, etc
+   This is provided by plugins.
+   This allows the editor to be lightweight and fast. The plugins are responsible for providing the features.
+   Plugins expose an API that the editor can use to provide the features.
 
-   Each of the plugins will need additional packs for specific languages.
+   1. Syntax Highlighting with TreeSitter
+      TreeSitter is a syntax highlighting, codefolding, and indentation engine that is used by Nvim to provide syntax highlighting.
+      Enter `:TSInstallInfo` to check the installed language packs.
+      Enter `:TSInstall angular` to install the angular language pack.
+      When we configure a "language pack" for a language, the TreeSitter language module for that language will be installed by AstroNvim.
 
-   For e.g., once TreeSitter is installed, it exposes a TSInstall command which can be used to install the language packs.
-   :TSInstall angular
+   2. Syntax Checking with Language Servers
+      Nvim communicates with the Language Servers to determine syntax correctness of the files being edited and suggest "completions".
+      When we configure a "language pack" for a language, the language server for that language will be installed by AstroNvim via Mason.
+      The "Mason" plugin is responsible for managing Language Servers, DAP, Linters,and Formatters.
+      Enter :Mason at the to bring up the Mason menu
 
-   Similarly, we have
-   :DAPInstall angular
-   :LSPInstall angular
-
-8. Create an angular project
-   install node
-   install angular
-   ng new angular_one
-   cd angular_one
-   nvim
+   3. Debugging with DAP Plugin
+      The DAP plugin is used for debugging and is also mangaged by Mason.
+      Enter :Mason then navigate to the DAP section to see the available debuggers.
 
 9. Navigating the Project with NeoTree Explorer
    <space> e will toggle up the file explorer(NeoTree)
-   <space> o will toggle up explorer and the open tab
+   <space> o will toggle between the file explorer and the open tab
    When in the File Explorer
-   <shift> p will preiview file from explorer
+   <shift> p will preview file from explorer
    <shift> s will open the file in a split
    use j and k to navigate the explorer
-   / to search for file
-   ? to bring up the explorer menu
-   s to open the file in a split
+   / will search for file
+   ? will bring up the explorer menu
+   s will open the file in a split
 
 10. Navigating the project with Telescope
-    <space> f f to find files
-    <space> f b to find buffers
+    <space> f f will find files
+    <space> f b will find buffers
 
 11. Working with "Window Splits"
     C-w o will close the split
@@ -96,38 +109,35 @@
 
     C-w v will split the window vertically
     C-w s will split the window horizontally
-    C-w w ... move between splits
+    C-w w will move between splits
 
-    C-w c ... close the split
+    C-w c will close the split
 
-    C-w o ... close all other windows (including teh explorer if it is open)
+    C-w o will close all other windows (including the explorer if it is open)
+
+    In Explorer, "s" will open tht file in a split
 
 12. Switching between buffers
-    <space> b c close this buffer
-    <space> b C close all buffers and quit nvim
+    <space> b c will close this buffer
+    <space> b C will close all buffers and quit nvim
     <space> b b will assign a short code to each buffer that you can then choose
 
-    Navigating the "jump list":
+13. Navigating the "jump list":
     C-o will go to the last buffer
     C-i will go to the next buffer
 
-13. Working with the Terminal
+14. Working with the Terminal
     <space> t f will toggle a floating terminal
 
     The terminal will start capturing all the key strokes. <space> t f might not work.
-    Use C-\ C-n to release the terminal from capturing all the key strokes.
+    Use Ctrl-\ Ctrl-n to release the terminal from capturing all the key strokes.
     Then use <space> t f to toggle the terminal
 
-14. Another way to use the Terminal(with Windows Terminal)
-    Alt + Shift + + will split the terminal horizontally
-    Use Alt + > and Alt + < to move between the Terminal Splits
+15. Another way to use the Terminal(with Windows Terminal)
+    Alt + Shift + + will split the Windows Terminal Vertically
+    Use Alt + > and Alt + < will move between the Terminal Splits
     Use NumPad - to reduce font size
-    Use Ctrl + Shift + w to close the split
-
-15. Managing splits
-    in explorer, "s" will open tht file in a split
-    then ctrl-w and sub command to manage splits
-    ctrl-w h switch to left window
+    Use Ctrl + Shift + w will close the split
 
 16. Installing copilot
     edit plugins/lua/user.lua and add the following code
