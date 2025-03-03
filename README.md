@@ -5,16 +5,25 @@
    ctrl + shift + p ... open command palette ...show all commands
 
    ctrl + shift + t ... new terminal window
+
    ctrl + tab ... switch to next terminal window
+
    ctrl + shift + tab ... switch to previous terminal window
+
    ctrl + shift + w ... close terminal window. if this is the last terminal window, it will close the terminal window
 
    alt + shift + + ... split terminal window horizontally
+
    alt + shift + < ... resize the split
+
    alt + shift + >
+
    ctrl + shift + w ... will close the split
+
    alt + < go to the right tab
+
    alt + < go to the left tab
+
    ctrl + NUM PAD -(Minus) ... decrease font size
 
 2. Install nvim for windows
@@ -24,6 +33,7 @@
 3. When nvim starts up , it will look for init.lua in C:\Users\<userid>\AppData\Local\nvim\init.lua
 
    To use AstoNvim, the init.lua has to be customized to load AstroNvim specific config and plugins.
+
    Fetch the customized init.lua to your AppData\Local\nvim\init.lua by cloning the following repo from github:
 
    `git clone --depth 1 https://github.com/AstroNvim/template $env:LOCALAPPDATA\nvim`
@@ -31,23 +41,31 @@
    This will create C:\Users\<userid>\AppData\Local\nvim
 
 4. Optional Step: Convert the nvim config directory(C:\Users\<userid>\AppData\Local\nvim\init.lua) to a git repo
+
    This way you can revert any changes you make to the init.lua or other config files.
-   For this, create a new repository on git hub and push the nvim directory to the repository.
+
+   For this, create a new repository on github and push the nvim directory to the repository.
 
 5. Change to the nvim config directory and start nvim
+
    `cd C:\Users\<userid>\AppData\Local\nvim`
+
    `nvim`
+
    This will start nvim with the customized `init.lua` in `C:\Users\<userid>\AppData\Local\nvim`.
+
    The customized init.lua will first install the `lazy` package manager.
+
    It will then load `lua/lazy_setup.lua`
+
    `lua/lazy_setup.lua` will do the following:
 
-   1. `lua/lazy_setup.lua` load and configure the AstroNvim plugin.
-   2. `lua/lazy_setup.lua` load and configure the plugins from folder `lua/plugins`
+   1. `lua/lazy_setup.lua` will load and configure the AstroNvim plugin.
+   2. `lua/lazy_setup.lua` will load and configure the plugins from folder `lua/plugins`
       Note that most of the files under `lua/plugins` are `disabled` by defaut.
       To enable the file, comment out the below line that appears the the top of each file:
       `if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE`
-   3. `lua/lazy_setup.lua` load and confiure the plugins from `commnunity.lua`
+   3. `lua/lazy_setup.lua` will load and confiure the plugins from `commnunity.lua`
 
 6. Install the "language packs" for the languages you are interested in.
 
@@ -140,7 +158,7 @@
     Use Ctrl + Shift + w will close the split
 
 16. Installing copilot
-    edit plugins/lua/user.lua and add the following code
+    Edit plugins/lua/user.lua and add the following code
 
     Explantion of the code:
     nvim-cmp is a completion plugin. Copilot has to be configured to collaborate with nvim-cmp.
