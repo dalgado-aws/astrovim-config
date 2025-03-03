@@ -1,4 +1,4 @@
-### Getting started with AstroNvim on Windows with Windows Terminal and PowerShell
+### Getting started with AstroNvim with Windows Terminal and PowerShell
 
 1. Open Windows Terminal
 
@@ -56,15 +56,15 @@
 
    The customized init.lua will first install the `lazy` package manager.
 
-   It will then load `lua/lazy_setup.lua`
-
-   `lua/lazy_setup.lua` will do the following:
+   It will then load `lua/lazy_setup.lua` and
 
    1. `lua/lazy_setup.lua` will load and configure the AstroNvim plugin.
+
    2. `lua/lazy_setup.lua` will load and configure the plugins from folder `lua/plugins`
       Note that most of the files under `lua/plugins` are `disabled` by defaut.
       To enable the file, comment out the below line that appears the the top of each file:
       `if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE`
+
    3. `lua/lazy_setup.lua` will load and confiure the plugins from `commnunity.lua`
 
 6. Install the "language packs" for the languages you are interested in.
@@ -91,42 +91,67 @@
    Plugins expose an API that the editor can use to provide the features.
 
    1. Syntax Highlighting with TreeSitter
+
       TreeSitter is a syntax highlighting, codefolding, and indentation engine that is used by Nvim to provide syntax highlighting.
+
       Enter `:TSInstallInfo` to check the installed language packs.
+
       Enter `:TSInstall angular` to install the angular language pack.
+
       When we configure a "language pack" for a language, the TreeSitter language module for that language will be installed by AstroNvim.
 
    2. Syntax Checking with Language Servers
+
       Nvim communicates with the Language Servers to determine syntax correctness of the files being edited and suggest "completions".
+
       When we configure a "language pack" for a language, the language server for that language will be installed by AstroNvim via Mason.
+
       The "Mason" plugin is responsible for managing Language Servers, DAP, Linters,and Formatters.
+
       Enter :Mason at the to bring up the Mason menu
 
    3. Debugging with DAP Plugin
+
       The DAP plugin is used for debugging and is also mangaged by Mason.
+
       Enter :Mason then navigate to the DAP section to see the available debuggers.
 
 9. Navigating the Project with NeoTree Explorer
+
    <space> e will toggle up the file explorer(NeoTree)
+
    <space> o will toggle between the file explorer and the open tab
+
    When in the File Explorer
+
    <shift> p will preview file from explorer
+
    <shift> s will open the file in a split
+
    use j and k to navigate the explorer
+
    / will search for file
+
    ? will bring up the explorer menu
+
    s will open the file in a split
 
 10. Navigating the project with Telescope
+
     <space> f f will find files
+
     <space> f b will find buffers
 
 11. Working with "Window Splits"
+
     C-w o will close the split
+
     C-w h/j/k/l will move to the left/bottom/top/right split
 
     C-w v will split the window vertically
+
     C-w s will split the window horizontally
+
     C-w w will move between splits
 
     C-w c will close the split
@@ -136,31 +161,45 @@
     In Explorer, "s" will open tht file in a split
 
 12. Switching between buffers
+
     <space> b c will close this buffer
+
     <space> b C will close all buffers and quit nvim
+
     <space> b b will assign a short code to each buffer that you can then choose
 
 13. Navigating the "jump list":
+
     C-o will go to the last buffer
+
     C-i will go to the next buffer
 
 14. Working with the Terminal
+
     <space> t f will toggle a floating terminal
 
     The terminal will start capturing all the key strokes. <space> t f might not work.
+
     Use Ctrl-\ Ctrl-n to release the terminal from capturing all the key strokes.
+
     Then use <space> t f to toggle the terminal
 
 15. Another way to use the Terminal(with Windows Terminal)
+
     Alt + Shift + + will split the Windows Terminal Vertically
+
     Use Alt + > and Alt + < will move between the Terminal Splits
+
     Use NumPad - to reduce font size
+
     Use Ctrl + Shift + w will close the split
 
 16. Installing copilot
+
     Edit plugins/lua/user.lua and add the following code
 
     Explantion of the code:
+
     nvim-cmp is a completion plugin. Copilot has to be configured to collaborate with nvim-cmp.
     If this is not done, the both nvim-cmp and copilot will be trying to provide suggestions and this will cause a conflict.
 
@@ -214,14 +253,18 @@ Once Copilot Setup is done, then use following techniquies
 ... Copilot will automatically make suggestions when cursor is resting
 
 17. Installing ChatGPT
+
     Get a ChatGPT API key from OpenAI by visiting https://beta.openai.com/signup/
+
     Set the environment variable in PowerShell
+
     $env:OPENAI_API_KEY="sk-proj-P2lnbwyGhZ4YHw9Vh6jsjsaxE5St5VV2KbEGSM4c79G..........."
 
     :ChatGPT
-    Various options are avialble
+
+    Various options are available to interact with ChatGPT
 
 18. Getting started with simple java program
-    Exebutin the program
+    Execute the program
 
 19. Getting Started with Springboot
